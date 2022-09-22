@@ -1,0 +1,54 @@
+.categories: &categories
+- call allurehelper categories --path ./out/allure-results/bdd
+
+.env: &env
+- call allurehelper env --path ./out/allure-results/bdd --v8version %v8version% --os --oscriptversion --vrunenrVersion --add %addVersion% --sha %CI_COMMIT_SHORT_SHA% --branch %CI_COMMIT_SHORT_SHA% --repoUrl %CI_PROJECT_URL%
+
+.history: &history
+- call allurehelper history --allureresults ./out/allure-results --apiurl %CI_API_V4_URL% --token %CI_DEPLOY_TOKEN% --id %CI_PROJECT_ID%  --scope success
+
+.executors: &executors
+- call allurehelper executors --path ./out/allure-results --name Gitlab --type GitlabCI --url %CI_SERVER_URL$ --buildOrder %CI_PIPELINE_ID% --buildName %CI_COMMIT_SHORT_SHA%  --buildUrl %CI_PIPELINE_URL$ --reportUrl %CI_PAGES_URL%
+
+bdd:
+  tags: 
+  - windows
+  stage: test
+  script:
+    - <test_command>
+  after_script:
+    - *categories
+    - *env
+    - *history
+    - *executors
+  artifacts:
+    when: always
+    name: "%CI_JOB_NAME%-%CI_COMMIT_REF_NAME%"
+    paths:
+      - ./out/allure-results/bdd/*.*
+      - ./out/allure-results/history/*.*
+      - ./out/allure-results/executors.json
+    
+pages:
+  stage: deploy
+  tags: 
+  - windows
+  needs:
+  - job: bdd
+  variables:
+    GIT_STRATEGY: none
+  when: always
+  allow_failure: true
+  script:
+    - chcp 65001
+    - git checkout %CI_DEFAULT_BRANCH%
+# генерим отчет в директорию по умолчанию для gitlab-pages
+# в каталоге out/allure-results лежит каталог history и executors.json
+# в каталоге bdd лежат файлы categories.json и environment.properties
+    - call allure generate out/allure-results out/allure-results/bdd -c -o ./public
+    - echo Allure results - %CI_PAGES_URL%
+  artifacts:
+    when: always
+    name: "%CI_JOB_NAME%-%CI_COMMIT_REF_NAME%"
+    paths:
+      - public

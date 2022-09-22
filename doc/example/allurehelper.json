@@ -1,0 +1,111 @@
+{
+    "history": {
+        "path": "./out/allure-results",
+        "URL": "https://gitlabexample.com/api/v4",
+        "projectID": "5",
+        "token": "$CI_JOB_TOKEN",
+        "scope": [
+            "success",
+            "created",
+            "pending",
+            "running",
+            "failed",
+            "canceled",
+            "skipped",
+            "waiting_for_resource",
+            "manual"
+        ],
+        "executors": true
+    },
+    "executors": {
+        "path": "./out/allure-results",
+        "name": "gitlab",
+        "type": "gitlabci",
+        "url": "https://gitlabexample.com/ones/ssl/-/pipelines",
+        "buildOrder": 521,
+        "buildName": "Доработка по задаче",
+        "buildUrl": "https://gitlabexample.com/ones/ssl/-/pipelines/528",
+        "reportUrl": "http://onec.pages.gitlabexample.com/ssl31"
+    },
+    "environment": {
+        "v8version": "8.3.17",
+        "os": true,
+        "oscript": true,
+        "vrunner": true,
+        "add": "6.8.0",
+        "va": "1.2.123",
+        "sha": "c3737b41",
+        "branch": "main",
+        "url": "https://gitlabexample.com/ones/ssl"
+    },
+    "reports": [
+        {
+            "name": "bdd",
+            "path": "./out/allure-results/bdd",
+            "categories": true,
+            "env": true,
+            "include_env": [
+                "v8version",
+                "os",
+                "oscript",
+                "vrunner",
+                "add",
+                "va",
+                "sha",
+                "branch",
+                "url"
+            ]
+        },
+        {
+            "name": "tdd",
+            "path": "./out/allure-results/tdd",
+            "categories": true,
+            "env": true,
+            "include_env": [
+                "v8version",
+                "os",
+                "oscript",
+                "vrunner",
+                "add",
+                "va",
+                "sha",
+                "branch",
+                "url"
+            ]
+        },
+        {
+            "name": "smoke",
+            "path": "./out/allure-results/smoke",
+            "categories": true,
+            "env": true,
+            "include_env": [
+                "v8version",
+                "os",
+                "oscript",
+                "vrunner",
+                "add",
+                "va",
+                "sha",
+                "branch",
+                "url"
+            ]
+        },
+        {
+            "name": "syntax",
+            "path": "./out/allure-results/syntax",
+            "categories": true,
+            "env": true,
+            "include_env": [
+                "v8version",
+                "os",
+                "oscript",
+                "vrunner",
+                "add",
+                "va",
+                "sha",
+                "branch",
+                "url"
+            ]
+        }
+    ]
+}
