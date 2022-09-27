@@ -1,6 +1,6 @@
 # Allure-helper
 
-Библиотека для работы с фреймворком [Allure](https://github.com/allure-framework/allure2) в gitlab.
+Помощник для работы с фреймворком [Allure](https://github.com/allure-framework/allure2) в gitlab.
 
 
 ## Доступные команды и их опции.
